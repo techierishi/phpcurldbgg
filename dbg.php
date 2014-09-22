@@ -2,11 +2,19 @@
 
 if(isset($_POST['message'])){
 	
-	$fo = fopen($_POST['filename'],$_POST['mode']);
-	
-	fwrite($fo,'[================[ '. date('d/m/Y H:m:s').' { '.$_POST['tag']. ' } ]================]');
-	fwrite($fo,$_POST['message']);
-
-	fclose($fo);
+	dbgg($_POST['message'],$_POST['mode'],$_POST['filename'],$_POST['tag']);
 }
 
+
+
+function dbgg($msg,$md='w',$fn='dbgg.html',$tg='No tag'){
+	
+	$fo = fopen($fn,$md);
+	
+	fwrite($fo,'<br>[================[ '. date('d/m/Y H:m:s').' { '.$tg. ' } ]================]<br>');
+	$msg = "<pre>".print_r($msg,true)."</pre>";
+	fwrite($fo,$msg);
+
+	fclose($fo);
+	
+}
